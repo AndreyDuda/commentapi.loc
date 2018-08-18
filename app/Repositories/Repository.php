@@ -13,11 +13,11 @@ abstract class Repository
 {
     protected $model = false;
 
-    public function get($select = '*', $order=false)
+    public function get($select = '*', $where=false)
     {
         $builder = $this->model->select($select);
-        if($order){
-            $builder->orderBy($order);
+        if($where) {
+            $builder->whereRaw($where);
         }
         return $builder->get();
     }

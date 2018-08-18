@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Http\Resources;
+
 use App\Repositories\CommentsRepository;
 
 class CommentController extends ApiController
@@ -19,6 +21,6 @@ class CommentController extends ApiController
     {
         $comments = $this->comments_rep->getOne($id);
 
-        return $comments;
+        return '1';
     }
 }
