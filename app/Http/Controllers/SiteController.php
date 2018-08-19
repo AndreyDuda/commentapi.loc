@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class SiteController extends Controller
 {
-    protected $comments_rep;
+    protected $commentsRep;
 
     protected $vars = array();
     protected $template;

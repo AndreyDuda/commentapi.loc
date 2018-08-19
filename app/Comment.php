@@ -3,19 +3,23 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Comment extends Model
 {
+    use SoftDeletes;
+
     const TABLE = 'comments';
 
     const PROP_ID = 'id';
-    const PROP_PARENT_ID = 'id_parent';
+    const PROP_PARENT_ID = 'parent_id';
+    const CONTENT = 'content';
 
     protected $table = self::TABLE;
+    protected $dates = ['deleted_at'];
     protected $fillable = [
         self::PROP_PARENT_ID,
-        'comment'
-
+        self::CONTENT
     ];
 
     public function children()

@@ -41,4 +41,9 @@ abstract class Repository
         return $model->id;
     }
 
+    public function delete()
+    {
+        return $this->delete();
+    }
+
 }
