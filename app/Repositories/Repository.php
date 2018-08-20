@@ -33,7 +33,7 @@ abstract class Repository
         return $this->model->save($input);
     }
 
-    public  function new($input)
+    public  function save($input)
     {
         $model = new $this->model;
         $model->fill($input);

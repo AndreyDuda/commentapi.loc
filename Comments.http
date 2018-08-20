@@ -5,10 +5,19 @@
 # * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
 # * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
 
-//GET http://127.0.0.1:8000/api/comment/show/1
+//GET http://127.0.0.1:8000/api/comment
 
-DELETE http://127.0.0.1:8000/api/comment/delete/1
+//GET http://127.0.0.1:8000/api/comment/4
+
+//DELETE http://127.0.0.1:8000/api/comment/3
+
+POST http://127.0.0.1:8000/api/comment
 
 Accept: application/json
-
+Cache-Control: no-cache
+Content-Type: application/json
+{
+    "parent_id":"5",
+    "content":"HELLO"
+}
 ###

@@ -17,5 +17,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/comment/show/{id}', 'Api\CommentController@show');
-Route::delete('/comment/delete/{id}', 'Api\CommentController@destroy');
+Route::get('/comment/{id}',           'Api\CommentController@show');
+Route::get('/comment',                'Api\CommentController@index');
+Route::post('/comment',               'Api\CommentController@store');
+Route::put('/comment/{id}',           'Api\CommentController@update');
+Route::delete('/comment/{id}',        'Api\CommentController@destroy');

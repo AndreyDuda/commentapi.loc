@@ -23,7 +23,15 @@ class CommentController extends Controller
 
     public function index()
     {
-        //
+        $result = false;
+        $comments = $this->commentsRep->get();
+
+        if($comments) {
+            $result = CommentResource::collection($comments);
+        }
+
+        return ($result)? response()->json($result, 200) : response()->json(['success' => 'No data'], 204);
+
     }
 
     /**
@@ -44,11 +52,21 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $result = false;
+        if($request->isMethod('post')) {
+
+
+                /*$data = $request->input();
+                $comment = $this->commentsRep;
+                $result = $comment->save($data);*/
+                return  $request->parent_id;
+
+
+        }
 
     }
 
-    /**
+    /*
      * Display the specified resource.
      *
      * @param  int $id
@@ -62,7 +80,7 @@ class CommentController extends Controller
             $result = new CommentResource($comment);
         }
 
-        return ($result)? $result:'Такого комментария нет';
+        return ($result)? response()->json($result, 200):response()->json(['error' => 'No this comment'], 400);
     }
 
     /**
@@ -102,6 +120,6 @@ class CommentController extends Controller
             $result = $comment->delete();
         }
 
-        return ($result)? 'Комментарий удален':'Такого комментария нет';
+        return ($result)? response()->json($result, 200):response()->json(['error' => 'System error'], 400);
     }
 }
