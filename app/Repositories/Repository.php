@@ -28,16 +28,18 @@ abstract class Repository
         return $result;
     }
 
-    public function update($input)
+    public function update($data)
     {
-        return $this->model->save($input);
+        $this->model->fill($data);
+        $this->model->save($data);
+        return $this->model->id;
     }
 
-    public  function save($input)
+    public  function save($data)
     {
         $model = new $this->model;
-        $model->fill($input);
-        $model->save($input);
+        $model->fill($data);
+        $model->save($data);
         return $model->id;
     }
 

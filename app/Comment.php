@@ -13,13 +13,13 @@ class Comment extends Model
 
     const PROP_ID = 'id';
     const PROP_PARENT_ID = 'parent_id';
-    const CONTENT = 'content';
+    const TEXT = 'text';
 
     protected $table = self::TABLE;
     protected $dates = ['deleted_at'];
     protected $fillable = [
         self::PROP_PARENT_ID,
-        self::CONTENT
+        self::TEXT
     ];
 
     public function children()

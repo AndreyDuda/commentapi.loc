@@ -6,6 +6,8 @@ use App\Repositories\CommentsRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Comment as CommentResource;
+use App\Comment;
+use Validator;
 
 class CommentController extends Controller
 {
@@ -23,7 +25,7 @@ class CommentController extends Controller
 
     public function index()
     {
-        $result = false;
+        $result   = false;
         $comments = $this->commentsRep->get();
 
         if($comments) {
@@ -53,17 +55,24 @@ class CommentController extends Controller
     public function store(Request $request)
     {
         $result = false;
-        if($request->isMethod('post')) {
+        $rules  = [
+            Comment::TEXT           => 'bail|required|min:5',
+            Comment::PROP_PARENT_ID => 'integer'
+        ];
 
+        $validate = Validator::make($request->all(), $rules);
 
-                /*$data = $request->input();
-                $comment = $this->commentsRep;
-                $result = $comment->save($data);*/
-                return  $request->parent_id;
+        if(!$validate->fails()) {
+            $data = [
+                Comment::TEXT           => (isset($request->text)) ? $request->text : false,
+                Comment::PROP_PARENT_ID => (isset($request->parent_id)) ? $request->parent_id : 0
+            ];
 
-
+            $comment = $this->commentsRep;
+            $result  = $comment->save($data);
         }
 
+        return ($result)? response()->json('Success', 200):response()->json(['error' => 'System error'], 400);
     }
 
     /*
@@ -74,8 +83,9 @@ class CommentController extends Controller
      */
     public function show($id)
     {
-        $result = false;
+        $result  = false;
         $comment = $this->commentsRep->getOne($id);
+
         if($comment) {
             $result = new CommentResource($comment);
         }
@@ -103,7 +113,25 @@ class CommentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $result = false;
+        $rules  = [
+            Comment::TEXT           => 'bail|required|min:5',
+            Comment::PROP_PARENT_ID => 'integer'
+        ];
+
+        $comment  = $this->commentsRep->getOne($id);
+        $validate = Validator::make($request->all(), $rules);
+
+        if($comment || !$validate->fails()) {
+            $data = [
+                Comment::TEXT           => (isset($request->text)) ? $request->text : false,
+                Comment::PROP_PARENT_ID => (isset($request->parent_id)) ? $request->parent_id : 0
+            ];
+
+            $result = $comment->update($data);
+        }
+
+        return ($result)? response()->json('Success', 200):response()->json(['error' => 'System error'], 400);
     }
 
     /**
@@ -114,8 +142,9 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        $result = false;
+        $result  = false;
         $comment = $this->commentsRep->getOne($id);
+
         if($comment) {
             $result = $comment->delete();
         }

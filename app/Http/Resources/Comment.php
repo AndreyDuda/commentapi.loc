@@ -14,10 +14,11 @@ class Comment extends JsonResource
      */
     public function toArray($request)
     {
+        /*return parent::toArray($request);*/
         return [
             'id' => $this->id,
             'parent_id' => $this->parent_id,
-            'content' => $this->content
+            'text' => $this->text
         ];
     }
 }

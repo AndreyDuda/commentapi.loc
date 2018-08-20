@@ -16,7 +16,7 @@ POST http://127.0.0.1:8000/api/comment
 Accept: application/json
 Cache-Control: no-cache
 Content-Type: application/json
-{
+data:{
     "parent_id":"5",
     "content":"HELLO"
 }
