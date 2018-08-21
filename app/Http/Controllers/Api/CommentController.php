@@ -124,7 +124,7 @@ class CommentController extends Controller
         $comment  = $this->commentsRep->getOne($id);
         $validate = Validator::make($request->all(), $rules);
 
-        if ($comment || !$validate->fails()) {
+        if ($comment && !$validate->fails()) {
             $data = [
                 Comment::TEXT           => $request->text,
                 Comment::PROP_PARENT_ID => $request->parent_id
