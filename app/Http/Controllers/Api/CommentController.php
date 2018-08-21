@@ -33,7 +33,6 @@ class CommentController extends Controller
         }
 
         return ($result)? response()->json($result, 200) : response()->json(['error' => 'System error'], 400);
-
     }
 
     /**
@@ -54,8 +53,9 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        $result = false;
-        $rules  = [
+        $result  = false;
+        $comment = $this->commentsRep;
+        $rules   = [
             Comment::TEXT           => 'bail|required|min:5',
             Comment::PROP_PARENT_ID => 'integer'
         ];
@@ -68,9 +68,7 @@ class CommentController extends Controller
                 Comment::PROP_PARENT_ID =>  $request->parent_id
             ];
 
-            $comment = $this->commentsRep;
             $result  = $comment->save($data);
-            $data    = array_add($data, Comment::PROP_ID, $result);
         }
 
         return ($result)? response()->json($data, 200):response()->json(['error' => 'System error'], 400);
@@ -134,7 +132,7 @@ class CommentController extends Controller
             $data   = array_add($data, Comment::PROP_ID, $id);
         }
 
-        return ($result)? response()->json($data, 200):response()->json(['error' => 'System error'], 400);
+        return ($result)? response()->json(new CommentResource($comment), 200):response()->json(['error' => 'System error'], 400);
     }
 
     /**
