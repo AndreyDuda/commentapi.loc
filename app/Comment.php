@@ -11,12 +11,15 @@ class Comment extends Model
 
     const TABLE = 'comments';
 
-    const PROP_ID = 'id';
+    const PROP_ID        = 'id';
     const PROP_PARENT_ID = 'parent_id';
-    const TEXT = 'text';
+    const TEXT           = 'text';
+    const CREATED_AT     = 'created_at';
+    const UPDATED_AT     = 'updated_at';
+    const DELETED_AT     = 'deleted_at';
 
-    protected $table = self::TABLE;
-    protected $dates = ['deleted_at'];
+    protected $table    = self::TABLE;
+    protected $dates    = self::DELETED_AT;
     protected $fillable = [
         self::PROP_PARENT_ID,
         self::TEXT

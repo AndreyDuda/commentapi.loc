@@ -28,7 +28,7 @@ class CommentController extends Controller
         $result   = false;
         $comments = $this->commentsRep->get();
 
-        if($comments) {
+        if ($comments) {
             $result = CommentResource::collection($comments);
         }
 
@@ -62,17 +62,18 @@ class CommentController extends Controller
 
         $validate = Validator::make($request->all(), $rules);
 
-        if(!$validate->fails()) {
+        if (!$validate->fails()) {
             $data = [
-                Comment::TEXT           => (isset($request->text)) ? $request->text : false,
-                Comment::PROP_PARENT_ID => (isset($request->parent_id)) ? $request->parent_id : 0
+                Comment::TEXT           =>  $request->text,
+                Comment::PROP_PARENT_ID =>  $request->parent_id
             ];
 
             $comment = $this->commentsRep;
             $result  = $comment->save($data);
+            $data    = array_add($data, Comment::PROP_ID, $result);
         }
 
-        return ($result)? response()->json('Success', 200):response()->json(['error' => 'System error'], 400);
+        return ($result)? response()->json($data, 200):response()->json(['error' => 'System error'], 400);
     }
 
     /*
@@ -86,7 +87,7 @@ class CommentController extends Controller
         $result  = false;
         $comment = $this->commentsRep->getOne($id);
 
-        if($comment) {
+        if ($comment) {
             $result = new CommentResource($comment);
         }
 
@@ -114,6 +115,7 @@ class CommentController extends Controller
     public function update(Request $request, $id)
     {
         $result = false;
+        $data   = [];
         $rules  = [
             Comment::TEXT           => 'bail|required|min:5',
             Comment::PROP_PARENT_ID => 'integer'
@@ -122,16 +124,17 @@ class CommentController extends Controller
         $comment  = $this->commentsRep->getOne($id);
         $validate = Validator::make($request->all(), $rules);
 
-        if($comment || !$validate->fails()) {
+        if ($comment || !$validate->fails()) {
             $data = [
-                Comment::TEXT           => (isset($request->text)) ? $request->text : false,
-                Comment::PROP_PARENT_ID => (isset($request->parent_id)) ? $request->parent_id : 0
+                Comment::TEXT           => $request->text,
+                Comment::PROP_PARENT_ID => $request->parent_id
             ];
 
             $result = $comment->update($data);
+            $data   = array_add($data, Comment::PROP_ID, $id);
         }
 
-        return ($result)? response()->json('Success', 200):response()->json(['error' => 'System error'], 400);
+        return ($result)? response()->json($data, 200):response()->json(['error' => 'System error'], 400);
     }
 
     /**
@@ -145,10 +148,10 @@ class CommentController extends Controller
         $result  = false;
         $comment = $this->commentsRep->getOne($id);
 
-        if($comment) {
+        if ($comment) {
             $result = $comment->delete();
         }
 
-        return ($result)? response()->json($result, 200):response()->json(['error' => 'System error'], 400);
+        return ($result)? response()->json(['Success' => 'ок'], 200):response()->json(['error' => 'System error'], 400);
     }
 }

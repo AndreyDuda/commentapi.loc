@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use App\Comment;
 
 class CreateCommentsTable extends Migration
 {
@@ -14,9 +15,9 @@ class CreateCommentsTable extends Migration
     public function up()
     {
         Schema::create('comments', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('parent_id');
-            $table->text('text');
+            $table->increments(Comment::PROP_ID);
+            $table->integer(Comment::PROP_PARENT_ID);
+            $table->text(Comment::TEXT);
             $table->timestamps();
         });
     }

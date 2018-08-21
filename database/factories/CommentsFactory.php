@@ -7,6 +7,6 @@ $factory->define(App\Comment::class, function (Faker $faker) {
     static $number = 0;
     return [
         Comment::PROP_PARENT_ID => $faker->numberBetween($min = 0, $max = $number++),
-        Comment::TEXT => $faker->text(500)
+        Comment::TEXT           => $faker->text(500)
     ];
 });

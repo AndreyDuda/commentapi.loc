@@ -32,18 +32,62 @@ class ApiCommentTest extends TestCase
 
     public function testStore()
     {
-        $headers  = [
+        $headers = [
             'Accept'       => 'application/json',
             'Content-Type' => 'application/json'
         ];
-        $comment  = [
+        $comment = [
             Comment::TEXT           => 'Lorem',
             Comment::PROP_PARENT_ID => '0'
         ];
 
-        $this->json('POST', '/api/articles', $comment, $headers)
+        $this->json('POST', '/api/comment', $comment, $headers)
             ->assertStatus(200)
-            ->assertJson([Comment::TEXT => 'Lorem', Comment::PROP_PARENT_ID => 0]);
+            ->assertJson($comment);
+    }
 
+    public function testShow()
+    {
+        $headers = [
+            'Accept' => 'application/json'
+        ];
+        $comment = [
+            Comment::PROP_ID => '1',
+        ];
+
+        $this->json('GET', '/api/comment/' . $comment[Comment::PROP_ID], [], $headers)
+            ->assertStatus(200)
+            ->assertJson([Comment::PROP_ID => '1']);
+    }
+
+    public function testUpdate()
+    {
+        $headers = [
+            'Accept'       => 'application/json',
+            'Content-Type' => 'application/json'
+        ];
+        $comment = [
+            Comment::PROP_ID        => '1',
+            Comment::TEXT           => 'Lorem update',
+            Comment::PROP_PARENT_ID => '0'
+        ];
+
+        $this->json('PUT', '/api/comment/' . $comment[Comment::PROP_ID], $comment, $headers)
+            ->assertStatus(200)
+            ->assertJson($comment);
+    }
+
+    public function destroy()
+    {
+        $headers = [
+            'Accept' => 'application/json'
+        ];
+        $comment = [
+            Comment::PROP_ID => '1',
+        ];
+
+        $this->json('GET', '/api/comment/' . $comment[Comment::PROP_ID], [], $headers)
+            ->assertStatus(200)
+            ->assertJson(['Success' => 'ок']);
     }
 }

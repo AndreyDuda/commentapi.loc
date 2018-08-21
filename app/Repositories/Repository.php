@@ -16,7 +16,7 @@ abstract class Repository
     public function get($select = '*', $where=false)
     {
         $builder = $this->model->select($select);
-        if($where) {
+        if ($where) {
             $builder->whereRaw($where);
         }
         return $builder->get();
