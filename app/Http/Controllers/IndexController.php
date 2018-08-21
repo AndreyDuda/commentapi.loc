@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Repositories\CommentsRepository;
 
-
 class IndexController extends SiteController
 {
     public function __construct(CommentsRepository $commentsRep)
