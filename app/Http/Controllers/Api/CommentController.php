@@ -32,7 +32,7 @@ class CommentController extends Controller
             $result = CommentResource::collection($comments);
         }
 
-        return ($result)? response()->json($result, 200) : response()->json(['success' => 'No data'], 204);
+        return ($result)? response()->json($result, 200) : response()->json(['error' => 'System error'], 400);
 
     }
 
