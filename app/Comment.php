@@ -19,7 +19,7 @@ class Comment extends Model
     const DELETED_AT     = 'deleted_at';
 
     protected $table    = self::TABLE;
-    protected $dates    = self::DELETED_AT;
+    protected $dates    = ['deleted_at'];
     protected $fillable = [
         self::PROP_PARENT_ID,
         self::TEXT
