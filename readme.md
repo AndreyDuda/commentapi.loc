@@ -44,9 +44,9 @@ Cкачать проект возможно 2 способами
 <pre>
 <code>http:://localhost/comment/id</code>
 </pre>  
-Удалить контент
+Удалить контент DELETE
 <pre>
-<code>DELETE http:://localhost/comment/id</code>
+<code>http:://localhost/comment/id</code>
 </pre>
 
 Так же доступен просмотр отображение всего контента в браузере по ссылке 
