@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\CommentsRepository;
+use App\Comment;
 
 class IndexController extends SiteController
 {
@@ -15,7 +16,7 @@ class IndexController extends SiteController
     public function index()
     {
         $select   = '*';
-        $where    = 'parent_id = 0';
+        $where    = Comment::PROP_PARENT_ID . ' = 0';
         $comments = $this->commentsRep->get($select, $where);
         $data     = [
             'comments' => $comments

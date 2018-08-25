@@ -30,28 +30,28 @@ Cкачать проект возможно 2 способами
 Для использование API рекомендуется исплользовать программу Postman.<br><br>
 Посмотреть весь контент GET
 <pre>
-<code>http:://localhost/comment</code>
+<code>http://localhost/comment</code>
 </pre>
-Создать новый контент POST (передать данные обязательные : text, необязательные : parent_id)
+Создать новый контент POST передать данные (обязательные : text, необязательные : parent_id)
 <pre>
-<code>http:://localhost/comment</code>
+<code>http://localhost/comment</code>
 </pre>     
 Посмотреть определенный контент GET 
 <pre>
-<code>http:://localhost/comment/id</code>
+<code>http://localhost/comment/id</code>
 </pre>     
-Редактировать контент PUT (передать данные обязательные : text, необязательные : parent_id)
+Редактировать контент PUT передать данные (обязательные : text, необязательные : parent_id)
 <pre>
-<code>http:://localhost/comment/id</code>
+<code>http://localhost/comment/id</code>
 </pre>  
 Удалить контент DELETE
 <pre>
-<code>http:://localhost/comment/id</code>
+<code>http://localhost/comment/id</code>
 </pre>
 
 Так же доступен просмотр отображение всего контента в браузере по ссылке 
 <pre>
-<code>http:://localhost/comment</code>
+<code>http://localhost/comment</code>
 </pre>      
 ## Тестирование
 
